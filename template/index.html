@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="./upload">
+        上传文件：<input type="file" name="image" id="file">
+    </form>
+    <button id="upload">这里是首页</button>
+    <script>
+
+        get("#upload").onclick = function () {
+            let fd = new FormData();
+            fd.append("file", get("#file").files[0])
+            fetch("http://localhost:999/undata", {
+                method: 'POST',
+                body: fd
+            }).then((e) => {
+                console.log(e)
+            })
+        }
+        function get(dom) {
+            if (dom.substring(0, 1) == "#") {
+                return document.querySelector(dom)
+            } else {
+                return document.querySelectorAll(dom)
+            }
+        }
+    </script>
+</body>
+
+</html>

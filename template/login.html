@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Comp">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <form action="" autocomplete="on" id="my-form">
+        <input type="text" placeholder="请输入账号" id="username">
+        <input type="password" name="" placeholder="请输入密码" id="password">
+    </form>
+    <button id="login">登录</button>
+    <button id="regist">注册</button>
+    <button id="readCookie">获取cookie</button>
+    <script>
+        let head="http://localhost:999/";
+        function get(dom){
+            if(dom.substring(0,1)=="#"){
+               return document.querySelector(dom)
+            }else{
+                return document.querySelectorAll(dom)
+            }
+            
+        }
+        get("#login").onclick=function(){
+           let username= get("#username").value;
+           let password= get("#password").value;
+           var ajax=new XMLHttpRequest();
+           ajax.open("post",head+"login");
+           ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+           ajax.onload=function(res){
+               console.log(res.target.response);
+               alert(JSON.parse(res.target.response).msg);
+           }
+           ajax.send("username="+username+"&password="+password);
+        }
+        get("#regist").onclick=function(){
+           let username= get("#username").value;
+           let password= get("#password").value;
+           var ajax=new XMLHttpRequest();
+           ajax.open("post",head+"regist");
+           ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+           ajax.onload=function(res){
+               console.log(res.target.response);
+               alert(JSON.parse(res.target.response).msg);
+           }
+           ajax.send("username="+username+"&password="+password);
+        }
+        get("#readCookie").onclick=function(){
+           var ajax=new XMLHttpRequest();
+           ajax.open("post",head+"readCookie");
+           ajax.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+           ajax.onload=function(res){
+               alert(res);
+           }
+           ajax.send();
+        }
+    </script>
+</body>
+</html>
